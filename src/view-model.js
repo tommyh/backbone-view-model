@@ -1,3 +1,11 @@
+// Backbone.ViewModel v0.1.0
+//
+// Copyright (C)2012 Tom Hallett
+// Distributed Under MIT License
+//
+// Documentation and Full License Available at:
+// http://github.com/tommyh/backbone-view-model
+
 Backbone.ViewModel = (function(Backbone, _, undefined){
   'use strict';
 
