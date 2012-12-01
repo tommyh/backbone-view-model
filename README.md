@@ -61,3 +61,7 @@ myTweetViewModel.get("truncated_text") // => "I love bac…"
 # They can be used easily in your View Template
 {{ truncated_text }} <a href="#">View more</a>
 ~~~
+
+## Installation
+
+To install, include the `src/backbone-view-model.js` file in your HTML page, after Backbone and it's dependencies.
