@@ -1,10 +1,37 @@
 module("ViewModel");
 
-test("initialize: Can be created with no attributes", function(){
+test("initialize: A ViewModel can be created with no arguments", function(){
   var ViewModel = Backbone.ViewModel.extend({});
   var viewModel = new ViewModel();
 
   ok(viewModel, "ViewModel instance created");
+});
+
+test("initialize: A ViewModel can be created with properties", function(){
+  var ViewModel = Backbone.ViewModel.extend({});
+  var viewModel = new ViewModel({ "name": "Billy" });
+
+  deepEqual(viewModel.get("name"), "Billy", "attributes are preserved");
+});
+
+test("initialize: A ViewModel can be created with classProperties", function(){
+  var ViewModel = Backbone.ViewModel.extend({});
+  var viewModel = new ViewModel({}, {collection: "fake"});
+
+  deepEqual(viewModel.collection, "fake", "classProperties are preserved");
+});
+
+test("initialize: A ViewModel can be created with an initialize function", function(){
+  var ViewModel = Backbone.ViewModel.extend({
+    initialize: function(){},
+    computed_attributes: {
+      foo: function(){ return "bar"; }
+    }
+  });
+
+  var viewModel = new ViewModel();
+
+  deepEqual(viewModel.get("foo"), "bar", "computed_attributes are still processed");
 });
 
 test("computed_attributes: Will be set on the ViewModel", function(){

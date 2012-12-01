@@ -1,8 +1,11 @@
-Backbone.ViewModel = Backbone.Model.extend({
+var parentClass = Backbone.Model;
 
-  initialize: function(){
-    this.initializeViewModel();
-  },
+Backbone.ViewModel = function(attributes, options){
+  parentClass.apply(this, [attributes, options]);
+  this.initializeViewModel();
+};
+
+_.extend(Backbone.ViewModel.prototype, parentClass.prototype, {
 
   initializeViewModel: function(){
     this.setComputedAttributes();
@@ -22,3 +25,5 @@ Backbone.ViewModel = Backbone.Model.extend({
   }
 
 });
+
+Backbone.ViewModel.extend = parentClass.extend;
