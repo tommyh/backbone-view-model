@@ -1,29 +1,34 @@
-var parentClass = Backbone.Model;
+Backbone.ViewModel = (function(Backbone, _, undefined){
+  'use strict';
 
-Backbone.ViewModel = function(attributes, options){
-  parentClass.apply(this, [attributes, options]);
-  this.initializeViewModel();
-};
+  var Model = Backbone.Model,
+    ViewModel = function(attributes, options) {
+      Model.apply(this, [attributes, options]);
+      this.initializeViewModel();
+    };
 
-_.extend(Backbone.ViewModel.prototype, parentClass.prototype, {
+  _.extend(ViewModel.prototype, Model.prototype, {
 
-  initializeViewModel: function(){
-    this.setComputedAttributes();
-    this.bindToChangesInSourceModel();
-  },
+    initializeViewModel: function(){
+      this.setComputedAttributes();
+      this.bindToChangesInSourceModel();
+    },
 
-  setComputedAttributes: function(){
-    _.each(this.computed_attributes, function(value, key){
-      this.set(key, value.call(this));
-    }, this)
-  },
+    setComputedAttributes: function(){
+      _.each(this.computed_attributes, function(value, key){
+        this.set(key, value.call(this));
+      }, this)
+    },
 
-  bindToChangesInSourceModel: function(){
-    if(this.has("source_model")){
-      this.get("source_model").on("change", this.setComputedAttributes, this);
+    bindToChangesInSourceModel: function(){
+      if(this.has("source_model")){
+        this.get("source_model").on("change", this.setComputedAttributes, this);
+      }
     }
-  }
 
-});
+  });
 
-Backbone.ViewModel.extend = parentClass.extend;
+  ViewModel.extend = Model.extend;
+
+  return ViewModel;
+})(Backbone, _);
