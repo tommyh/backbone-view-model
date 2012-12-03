@@ -37,7 +37,7 @@ test("initialize: A ViewModel can be created with an initialize function", funct
 test("computed_attributes: Will be set on the ViewModel", function(){
   var ViewModel = Backbone.ViewModel.extend({
     computed_attributes: {
-      welcome_message: function(){ return "Hi!" }
+      welcome_message: function(){ return "Hi!"; }
     }
   });
 

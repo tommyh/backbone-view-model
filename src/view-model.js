@@ -25,7 +25,7 @@ Backbone.ViewModel = (function(Backbone, _, undefined){
     setComputedAttributes: function(){
       _.each(this.computed_attributes, function(value, key){
         this.set(key, value.call(this));
-      }, this)
+      }, this);
     },
 
     bindToChangesInSourceModel: function(){
