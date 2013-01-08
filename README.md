@@ -35,7 +35,7 @@ var TweetViewModel = Backbone.ViewModel.extend({
 
 Initialize your `ViewModel` and pass your persistence model as `source_model`:
 
-```
+```javascript
 var myTweetViewModel = new TweetViewModel({
 	source_model: myTweet
 });
