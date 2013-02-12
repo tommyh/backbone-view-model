@@ -1,10 +1,16 @@
-// Backbone.ViewModel v0.1.0
+// NOTE: sourceURL needs a line above it.
+//@ sourceURL=view-model.js
+// Backbone.ViewModel v0.1.1
 //
 // Copyright (C)2012 Tom Hallett
 // Distributed Under MIT License
 //
 // Documentation and Full License Available at:
 // http://github.com/tommyh/backbone-view-model
+// 
+// Patch 0.1.1. by Skyler Brungardt:
+//  Changed setComputedAttributes method to call the user defined function 
+//  instead, allowing for extended behaviors, such as silent property setting.
 
 Backbone.ViewModel = (function(Backbone, _, undefined){
   'use strict';
@@ -24,7 +30,7 @@ Backbone.ViewModel = (function(Backbone, _, undefined){
 
     setComputedAttributes: function(){
       _.each(this.computed_attributes, function(value, key){
-        this.set(key, value.call(this));
+        value.call(this);
       }, this);
     },
 
