@@ -78,3 +78,43 @@ test("computed_attributes: Will be run on a change event of the 'source_model'",
 
   deepEqual(viewModel.get("welcome_message"), "Hi Ryan Bailey!", "welcome_message has been correctly updated on the viewModel");
 });
+
+test("computed_attributes: Functions returning a value will be set properly", function() {
+  var Model = Backbone.ViewModel.extend({});
+
+  var ViewModel = Backbone.ViewModel.extend({
+    computed_attributes: {
+      welcome_message: function(){ return "Hi " + this.get("source_model").get("username") + "!"; }
+    }
+  });
+
+  var model = new Model({ username: "Tony Azevedo"});
+  var viewModel = new ViewModel({source_model: model});
+
+  model.set("username", "Skyler Brungardt");
+
+  deepEqual(viewModel.get("welcome_message"), "Hi Skyler Brungardt!", "welcome_message has been correctly updated on the viewModel");
+  
+  
+});
+
+test("computed_attributes: Functions NOT returning a value will be set properly", function() {
+  var Model = Backbone.ViewModel.extend({});
+
+  var ViewModel = Backbone.ViewModel.extend({
+    computed_attributes: {
+      welcome_message: function(){ 
+        this.set('welcome_message', 'Hi ' + this.get("source_model").get("username") + "!");
+      }
+    }
+  });
+
+  var model = new Model({ username: "Tony Azevedo"});
+  var viewModel = new ViewModel({source_model: model});
+
+  model.set("username", "Skyler Brungardt");
+
+  deepEqual(viewModel.get("welcome_message"), "Hi Skyler Brungardt!", "welcome_message has been correctly updated on the viewModel");
+  
+  
+});
