@@ -78,3 +78,58 @@ test("computed_attributes: Will be run on a change event of the 'source_model'",
 
   deepEqual(viewModel.get("welcome_message"), "Hi Ryan Bailey!", "welcome_message has been correctly updated on the viewModel");
 });
+
+test("computed_attributes: A ViewModel's attributes will be set from multiple 'source_models'", function(){
+  var Model = Backbone.ViewModel.extend({});
+
+  var ViewModel = Backbone.ViewModel.extend({
+    computed_attributes: {
+        message: function(){ return "Sum: " + (this.get("lhs").get("a") +
+                             this.get("rhs").get("b")); }
+    }
+  });
+
+  var lhs = new Model({ a: 10 });
+  var rhs = new Model({ b: 5 });
+
+  var viewModel = new ViewModel({source_models: {
+      lhs: lhs,
+      rhs: rhs,
+  }});
+
+  deepEqual(viewModel.get("message"), "Sum: 15", "attribute has been correctly derived from multiple source models");
+});
+
+test("computed_attributes: A ViewModel's attributes will be updated on change events on multiple 'source_models'", function(){
+  var Model = Backbone.ViewModel.extend({});
+
+  var ViewModel = Backbone.ViewModel.extend({
+    computed_attributes: {
+        message: function(){ return "Sum: " + (this.get("lhs").get("a") +
+                             this.get("rhs").get("b")); }
+    }
+  });
+
+  var lhs = new Model({ a: 10 });
+  var rhs = new Model({ b: 5 });
+
+  var viewModel = new ViewModel({source_models: {
+      lhs: lhs,
+      rhs: rhs,
+  }});
+
+  deepEqual(viewModel.get("message"), "Sum: 15", "attribute has been correctly derived from multiple source models");
+
+  lhs.set('a', 12);
+
+  deepEqual(viewModel.get("message"), "Sum: 17", "attribute has been correctly updated from first source model");
+
+  rhs.set('b', 7);
+
+  deepEqual(viewModel.get("message"), "Sum: 19", "attribute has been correctly updated from second source model");
+
+  rhs.set('a', 22);
+
+  deepEqual(viewModel.get("message"), "Sum: 19", "irrelevant atribute update become a noop");
+});
+
