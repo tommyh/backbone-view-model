@@ -18,6 +18,8 @@ Backbone.ViewModel = (function(Backbone, _, undefined){
   _.extend(ViewModel.prototype, Model.prototype, {
 
     initializeViewModel: function(){
+      this.set(this.get("source_models"));
+      this.source_models = _.union(_.values(this.get('source_models')), (this.get('source_model') || []));
       this.setComputedAttributes();
       this.bindToChangesInSourceModel();
     },
@@ -29,9 +31,9 @@ Backbone.ViewModel = (function(Backbone, _, undefined){
     },
 
     bindToChangesInSourceModel: function(){
-      if(this.has("source_model")){
-        this.get("source_model").on("change", this.setComputedAttributes, this);
-      }
+      _.each(this.source_models, function(model) {
+          model.on("change", this.setComputedAttributes, this);
+      }, this);
     }
 
   });

@@ -62,6 +62,36 @@ myTweetViewModel.get("truncated_text") // => "I love bac…"
 {{ truncated_text }} <a href="#">View more</a>
 ```
 
+If your `computed_attributes` depend on multiple source models, you can initalize your `ViewModel` with a `source_models` attribute that contains a mapping of attribute to model pairs:
+
+```javascript
+var lhsModel = new Model({ value: 10 });
+var rhsModel = new Model({ value: 20 });
+
+var SumViewModel = Backbone.ViewModel.extend({
+    computed_attributes: {
+        sum : function() { return this.get("lhs").get("value") + this.get("rhs").get("value"); },
+    },
+});
+
+var sumModel = new SumViewModel({
+    source_models: {
+        lhs: lhsModel,
+        rhs: rhsModel,
+    },
+});
+```
+
+As with the single `source_model` approach the `computed_attributes` will be processed when the `ViewModel` is created, and when any of the `source_model`'s change.
+
+```javascript
+console.log(sumModel.get("sum"));  // Prints '30'.
+
+lhsModel.set({value: 5});
+
+console.log(sumModel.get("sum")); // Prints '25'.
+```
+
 ## Installation
 
 To install, include the `src/backbone-view-model.js` file in your HTML page, after Backbone and it's dependencies.
