@@ -6,37 +6,48 @@
 // Documentation and Full License Available at:
 // http://github.com/tommyh/backbone-view-model
 
-Backbone.ViewModel = (function(Backbone, _, undefined){
+(function (root, factory) {
+  if (typeof define === 'function' && define.amd) {
+      define(['backbone', 'underscore'], factory);
+  } else {
+      factory(root.Backbone, root._);
+  }
+}(this, function (Backbone, _) {
+
   'use strict';
 
-  var Model = Backbone.Model,
-    ViewModel = function(attributes, options) {
-      Model.apply(this, [attributes, options]);
-      this.initializeViewModel();
-    };
+  Backbone.ViewModel = (function (Backbone, _, undefined){
 
-  _.extend(ViewModel.prototype, Model.prototype, {
+    var Model = Backbone.Model,
+      ViewModel = function(attributes, options) {
+        Model.apply(this, [attributes, options]);
+        this.initializeViewModel();
+      };
 
-    initializeViewModel: function(){
-      this.setComputedAttributes();
-      this.bindToChangesInSourceModel();
-    },
+    _.extend(ViewModel.prototype, Model.prototype, {
 
-    setComputedAttributes: function(){
-      _.each(this.computed_attributes, function(value, key){
-        this.set(key, value.call(this));
-      }, this);
-    },
+      initializeViewModel: function(){
+        this.setComputedAttributes();
+        this.bindToChangesInSourceModel();
+      },
 
-    bindToChangesInSourceModel: function(){
-      if(this.has("source_model")){
-        this.get("source_model").on("change", this.setComputedAttributes, this);
+      setComputedAttributes: function(){
+        _.each(this.computed_attributes, function(value, key){
+          this.set(key, value.call(this));
+        }, this);
+      },
+
+      bindToChangesInSourceModel: function(){
+        if(this.has("source_model")){
+          this.get("source_model").on("change", this.setComputedAttributes, this);
+        }
       }
-    }
 
-  });
+    });
 
-  ViewModel.extend = Model.extend;
+    ViewModel.extend = Model.extend;
 
-  return ViewModel;
-})(Backbone, _);
+    return ViewModel;
+
+  })(Backbone, _);
+}));

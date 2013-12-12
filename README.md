@@ -64,7 +64,7 @@ myTweetViewModel.get("truncated_text") // => "I love bac…"
 
 ## Installation
 
-To install, include the `src/backbone-view-model.js` file in your HTML page, after Backbone and it's dependencies.
+To install, include the `src/view-model.js` file in your HTML page, after Backbone and it's dependencies.
 
 
 ## Testing
