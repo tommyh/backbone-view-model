@@ -8,16 +8,15 @@
 
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
-      define(['backbone', 'underscore'], factory);
+    define(["underscore", "backbone"], factory);
   } else {
-      factory(root.Backbone, root._);
+    factory();
   }
-}(this, function (Backbone, _) {
+}(this, function() {
 
   'use strict';
 
-  Backbone.ViewModel = (function (Backbone, _, undefined){
-
+  Backbone.ViewModel = (function () {
     var Model = Backbone.Model,
       ViewModel = function(attributes, options) {
         Model.apply(this, [attributes, options]);
@@ -48,6 +47,5 @@
     ViewModel.extend = Model.extend;
 
     return ViewModel;
-
-  })(Backbone, _);
+  })();
 }));
