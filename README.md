@@ -102,6 +102,15 @@ To install, include the `src/view-model.js` file in your HTML page, after Backbo
 ## Testing
 
 This project uses QUnit for it's automated tests.
-If you'd like to contribute, please:
-* make sure the tests are green: `backbone-view-model/test/basic.html` and `backbone-view-model/test/require-js.html`.
-* add tests for your new feature/fixes
+
+You can run the automated tests in one of two ways:
+
+1. Open the following files in your browser: `backbone-view-model/test/basic.html` and `backbone-view-model/test/require-js.html`.
+
+2. Karma: Right now this is broken.  TODO - can someone help fix this?
+
+## Contributing
+
+* Make sure the tests are green.
+* Add tests for your new features/fixes, so I don't break them in the future.
+* Add documentation to the README, so people know about your new feature.
