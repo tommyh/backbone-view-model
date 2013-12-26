@@ -26,8 +26,6 @@
     _.extend(ViewModel.prototype, Model.prototype, {
 
       initializeViewModel: function(){
-        this.set(this.get("source_models"));
-        this.source_models = _.union(_.values(this.get('source_models')), (this.get('source_model') || []));
         this.setComputedAttributes();
         this.bindToChangesInSourceModel();
       },
@@ -39,7 +37,10 @@
       },
 
       bindToChangesInSourceModel: function(){
-        _.each(this.source_models, function(model) {
+        var sourceModel = this.get('source_model') || [],
+          sourceModels = _.values(this.get('source_models'));
+
+        _.each(_.union(sourceModel, sourceModels), function(model){
           model.on("change", this.setComputedAttributes, this);
         }, this);
       }

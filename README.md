@@ -62,34 +62,36 @@ myTweetViewModel.get("truncated_text") // => "I love bac…"
 {{ truncated_text }} <a href="#">View more</a>
 ```
 
-If your `computed_attributes` depend on multiple source models, you can initalize your `ViewModel` with a `source_models` attribute that contains a mapping of attribute to model pairs:
+If your `computed_attributes` depend on multiple source models, you can initialize your `ViewModel` with a `source_models` attribute that contains a mapping of attribute to model pairs:
 
 ```javascript
-var lhsModel = new Model({ value: 10 });
-var rhsModel = new Model({ value: 20 });
+var myOldestTweet = new Tweet({text: "Just joined twitter!"});
+var myNewestTweet = new Tweet({text: "I love backbone!"});
 
-var SumViewModel = Backbone.ViewModel.extend({
-    computed_attributes: {
-        sum : function() { return this.get("lhs").get("value") + this.get("rhs").get("value"); },
-    },
+var TweetSummaryViewModel = Backbone.ViewModel.extend({
+  computed_attributes: {
+    alpha_omega: function(){
+      return this.get("source_models").oldestTweet.get("text") + "…" + this.get("source_models").newestTweet.get("text");
+    }
+  }
 });
 
-var sumModel = new SumViewModel({
-    source_models: {
-        lhs: lhsModel,
-        rhs: rhsModel,
-    },
+var myTweetSummary = new TweetSummaryViewModel({
+  source_models: {
+    oldestTweet: myOldestTweet,
+    newestTweet: myNewestTweet
+  }
 });
 ```
 
-As with the single `source_model` approach the `computed_attributes` will be processed when the `ViewModel` is created, and when any of the `source_model`'s change.
+As with the single `source_model` approach the `computed_attributes` will be processed when the `ViewModel` is created, and when any of the `source_models` change.
 
 ```javascript
-console.log(sumModel.get("sum"));  // Prints '30'.
+console.log(myTweetSummary.get("alpha_omega"));  // Prints 'Just joined twitter!…I love backbone!'.
 
-lhsModel.set({value: 5});
+myNewestTweet.set({text: "Taking a lunch break"});
 
-console.log(sumModel.get("sum")); // Prints '25'.
+console.log(myTweetSummary.get("alpha_omega"));  // Prints 'Just joined twitter!…Taking a lunch break'.
 ```
 
 ## Installation
@@ -101,6 +103,5 @@ To install, include the `src/view-model.js` file in your HTML page, after Backbo
 
 This project uses QUnit for it's automated tests.
 If you'd like to contribute, please:
-* make sure the tests are green: backbone-view-model/test/index.html
+* make sure the tests are green: `backbone-view-model/test/basic.html` and `backbone-view-model/test/require-js.html`.
 * add tests for your new feature/fixes
-
