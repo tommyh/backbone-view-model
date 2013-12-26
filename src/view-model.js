@@ -6,39 +6,48 @@
 // Documentation and Full License Available at:
 // http://github.com/tommyh/backbone-view-model
 
-Backbone.ViewModel = (function(Backbone, _, undefined){
+(function (root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    define(["underscore", "backbone"], factory);
+  } else {
+    factory();
+  }
+}(this, function() {
+
   'use strict';
 
-  var Model = Backbone.Model,
-    ViewModel = function(attributes, options) {
-      Model.apply(this, [attributes, options]);
-      this.initializeViewModel();
-    };
+  Backbone.ViewModel = (function () {
+    var Model = Backbone.Model,
+      ViewModel = function(attributes, options) {
+        Model.apply(this, [attributes, options]);
+        this.initializeViewModel();
+      };
 
-  _.extend(ViewModel.prototype, Model.prototype, {
+    _.extend(ViewModel.prototype, Model.prototype, {
 
-    initializeViewModel: function(){
-      this.set(this.get("source_models"));
-      this.source_models = _.union(_.values(this.get('source_models')), (this.get('source_model') || []));
-      this.setComputedAttributes();
-      this.bindToChangesInSourceModel();
-    },
+      initializeViewModel: function(){
+        this.set(this.get("source_models"));
+        this.source_models = _.union(_.values(this.get('source_models')), (this.get('source_model') || []));
+        this.setComputedAttributes();
+        this.bindToChangesInSourceModel();
+      },
 
-    setComputedAttributes: function(){
-      _.each(this.computed_attributes, function(value, key){
-        this.set(key, value.call(this));
-      }, this);
-    },
+      setComputedAttributes: function(){
+        _.each(this.computed_attributes, function(value, key){
+          this.set(key, value.call(this));
+        }, this);
+      },
 
-    bindToChangesInSourceModel: function(){
-      _.each(this.source_models, function(model) {
+      bindToChangesInSourceModel: function(){
+        _.each(this.source_models, function(model) {
           model.on("change", this.setComputedAttributes, this);
-      }, this);
-    }
+        }, this);
+      }
 
-  });
+    });
 
-  ViewModel.extend = Model.extend;
+    ViewModel.extend = Model.extend;
 
-  return ViewModel;
-})(Backbone, _);
+    return ViewModel;
+  })();
+}));
