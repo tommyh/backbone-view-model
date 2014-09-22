@@ -10,9 +10,9 @@ module.exports = function(config) {
     files: [
       'test/lib/underscore-1.3.1.js',
       'test/lib/backbone-0.9.2.js',
-      'test/lib/require.js',
       'src/*.js',
-      'test/*.js'
+      'test/qunit-init.js',
+      'test/view-model.test.js'
     ],
 
     // list of files to exclude
@@ -20,7 +20,7 @@ module.exports = function(config) {
 
     // test results reporter to use
     // possible values: 'dots', 'progress', 'junit'
-    reporters: ['progress'],
+    reporters: ['dots'],
 
 
     // web server port
@@ -51,7 +51,7 @@ module.exports = function(config) {
     // - Safari (only Mac)
     // - PhantomJS
     // - IE (only Windows)
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
 
 
     // If browser does not capture in given timeout [ms], kill it
@@ -60,6 +60,6 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
-    singleRun: false
+    singleRun: true
   });
 };
