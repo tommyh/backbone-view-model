@@ -1,0 +1,7 @@
+{
+  "devDependencies": {
+    "karma": "*",
+    "karma-qunit": "*",
+    "karma-phantomjs-launcher": "*"
+  }
+}

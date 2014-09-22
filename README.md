@@ -107,7 +107,10 @@ You can run the automated tests in one of two ways:
 
 1. Open the following files in your browser: `backbone-view-model/test/basic.html` and `backbone-view-model/test/require-js.html`.
 
-2. Karma: Right now this is broken.  TODO - can someone help fix this?
+2. Karma
+2a. npm -g install karma-cli
+2b. npm install
+2c. karma start
 
 ## Contributing
 
