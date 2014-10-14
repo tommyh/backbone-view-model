@@ -41,7 +41,7 @@
           sourceModels = _.values(this.get('source_models'));
 
         _.each(_.union(sourceModel, sourceModels), function(model){
-          model.on("change", this.setComputedAttributes, this);
+          this.listenTo(model, 'change', this.setComputedAttributes);
         }, this);
       }
 
