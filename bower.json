@@ -1,0 +1,15 @@
+{
+  "name": "backbone-view-model",
+  "version": "0.0.0",
+  "homepage": "https://github.com/UseAllFive/backbone-view-model",
+  "description": "Keep views' business logic in a ViewModel and your persistence logic in your Model",
+  "license": "MIT",
+  "dependencies": {
+    "backbone": "~1.1.2",
+    "requirejs": "~2.1.15",
+    "jquery": "~2.1.1"
+  },
+  "devDependencies": {
+    "qunit": "~1.15.0"
+  }
+}

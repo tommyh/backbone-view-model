@@ -1,8 +1,9 @@
 require.config({
   paths: {
-    "underscore": "lib/underscore-1.3.1",
-    "backbone": "lib/backbone-0.9.2",
-    "backbone-view-model": "../src/view-model"
+    "underscore": "../bower_components/underscore/underscore",
+    "backbone": "../bower_components/backbone/backbone",
+    "backbone-view-model": "../src/view-model",
+    "jquery": "../bower_components/jquery/dist/jquery"
   }
 });
 
